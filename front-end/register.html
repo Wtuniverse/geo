@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="head">
+            <div class="logo">
+                <span>
+                    Kzy God
+                </span>
+            </div>
+            <div class="right-btn">
+                <button class="link-other">Link Other</button>
+                <a class="into-home">
+                    Into Home
+                </a>
+            </div>
+        </div>
+        <div class="form-content">
+            <h1 class="title">Agent Registration</h1>
+            <h3 class="tips">
+                Enter your details to create an account
+            </h3>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Full Name" name="username">
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Password" name="password1">
+                <input type="password" placeholder="Confirm Password" name="password2">
+            </div>
+            <br><br>
+            <button class="btn" onclick="register()">Register</button>
+            
+            <div class="request">
+                Already have an account?<a href="index.html">Login now</a>
+            </div>
+            <div class="Copyright">
+                Copyright @Kzy God 2023
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
