@@ -52,12 +52,87 @@ function selectpi(){
     pla = element[1]
 }
 
+var countdown; // 用于存储倒计时的变量
+var timer = 120; // 倒计时时间，单位为秒（2分钟）
+var isConfirmed = false; // 用于跟踪是否已经点击了确认按钮
 
+function startTimer() {
+    countdown = setInterval(function() {
+        var minutes = parseInt(timer / 60, 10);
+        var seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        document.getElementById('timer').textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = 0;
+            clearInterval(countdown);
+            if (!isConfirmed) {
+                confirm(true); // 倒计时结束时调用confirm函数
+            }
+        }
+    }, 1000);
+}
+
+function confirm(isTimeout) {
+    if(isTimeout) {
+        x = " "
+        y = 0; // 如果是因为倒计时结束调用的confirm，则设置得分为0
+    } else if (mla == "") {
+        alert("请先在地图上点击你认为该地的地理位置，再按确定");
+    } else {
+        x = calculateDistance(pla, plo, mla, mlo).toFixed(3)
+        y = calculateGrade(x).toFixed(0)
+    }
+    if(turn>=outturn){
+        turn += 1
+        grades += calculateGrade(x)
+        alert("距离所在位置"+x+"公里,得分为"+y);
+        let totalScore = grades.toFixed(0);
+        alert("总得分为" + totalScore);
+
+        const token = localStorage.getItem('jwtToken'); // 从LocalStorage中获取token
+        axios.post('http://localhost:3000/updateScore', {
+            score: totalScore
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token  // 将token添加到请求头
+            }
+        })
+        .then(response => {
+            let code = response.data.code;
+            if (code == -1 || code == -2) {
+                window.location.href = '../index.html';
+            } else if (code == 1) {
+                window.location.href = '../home.html';
+            } else {
+                alert(response.data.msg);
+            }
+        })
+        .catch(error => {
+            // 处理错误
+            console.error(error);
+        });
+
+    }else{
+        turn += 1
+        grades += calculateGrade(x)
+        alert("距离所在位置"+x+"公里,得分为"+y)
+        selectpi()
+        panorama.setPosition(new BMapGL.Point(plo, pla))
+    }
+
+    isConfirmed = true; // 标记已经确认
+}
+
+startTimer(); // 开始倒计时
 
 
 function confirm(){                              //确定按钮
     if(turn>=outturn){
-         x = calculateDistance(pla, plo, mla, mlo).toFixed(3)
+        x = calculateDistance(pla, plo, mla, mlo).toFixed(3)
         y = calculateGrade(x).toFixed(0)
         turn += 1
         grades += calculateGrade(x)

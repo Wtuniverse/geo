@@ -17,10 +17,22 @@
 	<script type="text/javascript" src="game.js"></script>
 	<script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=PfgFZ2CtTt4O4t40OZoPt5hH0fgmUjO5"></script>
 	<title>图寻</title>
+	<style>
+		#timer{
+			font-size: large;
+            position: absolute;
+			left: 50%; /* 定位到视口水平中心 */
+			top: 50px;
+			transform: translate(-50%, -50%); /* 使用transform进行微调 */
+			background-color: bisque;
+			z-index: 3; 
+		}
+	</style>
 </head>
 <body>
 	<div id="map"></div>
     <div id="panorama"></div>
+	<div id="timer">02:00</div>
 	<button id="button1" onclick="confirm()"><img src="OIP-C.jpg" alt="下一题" style="height:30px;width:30px;"></button>
 <script type="text/javascript">
 	selectpi()
