@@ -57,6 +57,11 @@ function selectpi(){
 
 function confirm(){                              //确定按钮
     if(turn>=outturn){
+         x = calculateDistance(pla, plo, mla, mlo).toFixed(3)
+        y = calculateGrade(x).toFixed(0)
+        turn += 1
+        grades += calculateGrade(x)
+        alert("距离所在位置"+x+"公里,得分为"+y);
         let totalScore = grades.toFixed(0);
         alert("总得分为" + totalScore);
 
