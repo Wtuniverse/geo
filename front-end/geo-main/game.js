@@ -57,13 +57,36 @@ function selectpi(){
 
 function confirm(){                              //确定按钮
     if(turn>=outturn){
-        alert("总得分为"+grades.toFixed(0))
-        window.location.reload()
+        let totalScore = grades.toFixed(0);
+        alert("总得分为" + totalScore);
+
+        const token = localStorage.getItem('jwtToken'); // 从LocalStorage中获取token
+        axios.post('http://localhost:3000/updateScore', {
+            score: totalScore
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + token  // 将token添加到请求头
+            }
+        })
+        .then(response => {
+            let code = response.data.code;
+            if (code == -1 || code == -2) {
+                window.location.href = '../index.html';
+            } else if (code == 1) {
+                window.location.href = '../home.html';
+            } else {
+                alert(response.data.msg);
+            }
+        })
+        .catch(error => {
+            // 处理错误
+            console.error(error);
+        });
+
     }       
-    if(mla == ""){
+    else if(mla == ""){
         alert("请先在地图上点击你认为该地的地理位置，再按确定")
-    }
-    else{
+    }else{
         x = calculateDistance(pla, plo, mla, mlo).toFixed(3)
         y = calculateGrade(x).toFixed(0)
         turn += 1

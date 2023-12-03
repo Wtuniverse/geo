@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="head">
+            <div class="logo">
+                <span>
+                    Kzy God
+                </span>
+            </div>
+            <div class="right-btn">
+                <span class="highestscore">
+                    <h3>your highest score is</h3>
+                    <p></p>
+                </span>
+            </div>
+        </div>
+        <div class="form-content">
+            <h1 class="title">Game mode</h1>
+            <h3 class="tips">
+                Choose a game mode you like to start
+            </h3>
+
+            <div class="box">
+                <div class="gamecontent">
+                    <h2>Mode one</h2>
+                    <p>When your talent can not hold up your ambition,you should calm down and learn. When your
+                        abilities can not realize your dreams, you should practice with all your heart.</p>
+                    <a href="geo-main/geoguess.html">start</a>
+                </div>
+            </div>
+
+            <div class="Copyright">
+                Copyright @Kzy God 2023
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        // request for the highest score
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('jwtToken'); // 从LocalStorage中获取token
+
+            axios.get('http://localhost:3000/highestscore', {
+                headers: {
+                    Authorization: 'Bearer ' + token  // 将token添加到请求头
+                }
+            })
+                .then(function (response) {
+                    if (response.data.code === 1) {
+                        // 处理成功情况
+                        document.querySelector('.highestscore p').innerText = response.data.highestScore;
+                        alert(response.data.highestScore);
+                    } else {
+                        alert(response.data.msg);
+                        console.log("Error:", response.data.msg);
+                        window.location.href = 'index.html';
+                    }
+
+                })
+                .catch(function (error) {
+                    // 处理错误情况
+                    console.log(error);
+                });
+        });
+
+    </script>
+</body>
+
+</html>
