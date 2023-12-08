@@ -83,7 +83,7 @@ function checkbtn() {
 }
 
 function resetTimer() {
-    timer = 10; // 重置时间为2分钟
+    timer = 120; // 重置时间为2分钟
     isConfirmed = false;
     startTimer(); // 重新开始倒计时
     console.log("重新开始倒计时");
@@ -95,7 +95,7 @@ function confirm() {
         y = 0; // 如果是因为倒计时结束调用的confirm，则设置得分为0
         console.log(y);
     } else if (isConfirmed && mla == "") {
-        alert("请先在地图上点击你认为该地的地理位置，再按确定");
+        alert("Please click on the map where you think the location is, and then click OK")
         isConfirmed = false;
         return;
     } else {
@@ -109,8 +109,8 @@ function confirm() {
     if(turn>=outturn){
         clearInterval(countdown); // 清除现有的计时器
         grades += parseInt(y);
-        alert("距离所在位置"+x+"公里,得分为"+y);
-        alert("总得分为" + grades);
+        alert("The distance is "+x+" kilometers,you scores is "+y)
+        alert("The total scores is "+grades.toFixed(0))
 
         const token = localStorage.getItem('jwtToken'); // 从LocalStorage中获取token
         axios.post('http://localhost:3000/updateScore', {
@@ -139,7 +139,7 @@ function confirm() {
         turn += 1
         grades += parseInt(y);
         console.log(grades);
-        alert("距离所在位置"+x+"公里,得分为"+y)
+        alert("The distance is "+x+" kilometers,you scores is "+y)
         selectpi()
         panorama.setPosition(new BMapGL.Point(plo, pla))
         resetTimer(); // 在设置新位置后重置倒计时
