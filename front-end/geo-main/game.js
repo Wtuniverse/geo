@@ -53,7 +53,7 @@ function selectpi(){
 }
 
 var countdown; // 用于存储倒计时的变量
-var timer = 10; // 倒计时时间，单位为秒（2分钟）
+var timer = 120; // 倒计时时间，单位为秒（2分钟）
 var isConfirmed = false; // 用于跟踪是否已经点击了确认按钮
 
 function startTimer() {

@@ -14,8 +14,8 @@ const db = mysql.createConnection({
   user: 'root',
   // password: 'a2003923',
   // database: 'geogusser'
-  password: 'chenbodyroot',
-  database: 'geo'
+  password: '12345678',
+  database: 'geogusser'
 });
 
 // Register endpoint
